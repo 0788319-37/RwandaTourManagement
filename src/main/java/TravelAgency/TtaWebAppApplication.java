@@ -9,5 +9,3 @@ public class TtaWebAppApplication {
 		SpringApplication.run(TtaWebAppApplication.class, args);
 	}
 }
-
-// TTA = Travel Tour Agency

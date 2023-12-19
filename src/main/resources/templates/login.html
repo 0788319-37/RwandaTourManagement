@@ -15,17 +15,40 @@
 
         /* BASIC */
 
-        html {
-            background-color: #56baed;
+        html, body {
+            height: 100%;
+            margin: 0;
+            background-color: #000; /* Black background */
+            color: #033a03; /* Green text color */
         }
 
         body {
             font-family: "Poppins", sans-serif;
-            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: url('https://www.visitrwanda.com/wp-content/uploads/fly-images/1639/Visit-Rwanda-Singing-Fishermen-1920x1280.jpg') center/cover no-repeat; /* Add your image URL */
+        }
+
+
+        #left-image {
+            width: 40%; /* Adjust the width as needed */
+            margin-right: 20px; /* Adjust spacing */
+        }
+
+        /* Center the form on larger screens */
+        @media (min-width: 768px) {
+            .wrapper {
+                flex-direction: row;
+            }
+
+            #formContent {
+                width: 50%;
+            }
         }
 
         a {
-            color: #92badd;
+            color: #021721;
             display:inline-block;
             text-decoration: none;
             font-weight: 400;
@@ -88,7 +111,7 @@
 
         h2.active {
             color: #0d0d0d;
-            border-bottom: 2px solid #5fbae9;
+            border-bottom: 2px solid #021721;
         }
 
 
@@ -105,8 +128,8 @@
             display: inline-block;
             text-transform: uppercase;
             font-size: 13px;
-            -webkit-box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
-            box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
+            -webkit-box-shadow: 0 10px 30px 0 rgb(2, 23, 33);
+            box-shadow: 0 10px 30px 0 rgb(2, 23, 33);
             -webkit-border-radius: 5px 5px 5px 5px;
             border-radius: 5px 5px 5px 5px;
             margin: 5px 20px 40px 20px;
@@ -118,7 +141,7 @@
         }
 
         input[type=button]:hover, input[type=submit]:hover, input[type=reset]:hover  {
-            background-color: #39ace7;
+            background-color: #021721;
         }
 
         input[type=button]:active, input[type=submit]:active, input[type=reset]:active  {
@@ -152,7 +175,7 @@
 
         input[type=text]:focus {
             background-color: #fff;
-            border-bottom: 2px solid #5fbae9;
+            border-bottom: 2px solid #021721;
         }
 
         input[type=text]::placeholder {
@@ -182,7 +205,7 @@
 
         input[type=password]:focus {
             background-color: #fff;
-            border-bottom: 2px solid #5fbae9;
+            border-bottom: 2px solid #021721;
         }
 
         input[type=password]::placeholder {
@@ -280,7 +303,7 @@
             bottom: -10px;
             width: 0;
             height: 2px;
-            background-color: #56baed;
+            background-color: #021721;
             content: "";
             transition: width 0.2s;
         }
@@ -313,7 +336,7 @@
         div p.fadeIn.fourth a {
             display: inline-block;
             padding: 10px 20px;
-            background-color: #56baed;
+            background-color: #021721;
             color: white;
             text-decoration: none;
             border-radius: 5px;
@@ -321,7 +344,7 @@
         }
 
         div p.fadeIn.fourth a:hover {
-            background-color: #39ace7;
+            background-color: #021721;
         }
         div p.fadeIn.fourth {
             text-align: center;
@@ -339,7 +362,7 @@
         }
 
         div p.fadeIn.fourth a:hover {
-            background-color: #39ace7;
+            background-color: #021721;
         }
 
     </style>
@@ -347,6 +370,10 @@
 </head>
 
 <body>
+<div class="wrapper fadeInDown">
+    <div id="left-image">
+    </div>
+    <div id="formContent">
 <!--<div style="margin-left: 30%; margin-top: 5%; ">-->
 <!--    <div id="loginbox" style="margin-top: 50px;" class="mainbox col-md-3 col-md-offset-2 col-sm-6 col-sm-offset-2">-->
 <!--        <div class="panel panel-info">-->
@@ -405,6 +432,10 @@
     <p class="fadeIn fourth">
         Don't have an account?
         <a th:href="@{/signup}">Sign Up</a>
+    </p>
+    <p class="fadeIn fourth">
+        forgot password??
+        <a th:href="@{/forgot-password}">Forgot Password</a>
     </p>
 </div>
 </div>

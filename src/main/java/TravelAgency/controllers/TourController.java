@@ -44,5 +44,11 @@ public class TourController {
         tourService.updateTour(updatedTour);
         return "redirect:/tours";  // Redirect to the tours page after updating the tour
     }
-
+    @Secured("ROLE_ADMIN")
+    @GetMapping("/delete/{id}")
+    public String deleteTour(@PathVariable("id") Long id) {
+        // You may want to perform validation and error handling here
+        tourService.deleteTourById(id);
+        return "redirect:/tours";  // Redirect to the tours page after deleting the tour
+    }
 }

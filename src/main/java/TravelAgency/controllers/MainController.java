@@ -1,15 +1,15 @@
 package TravelAgency.controllers;
 
+import TravelAgency.entities.Order;
 import TravelAgency.entities.Tours;
 import TravelAgency.entities.User;
+import TravelAgency.services.OrderService;
 import TravelAgency.services.TourService;
 import TravelAgency.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,6 +17,16 @@ import java.util.List;
 public class MainController {
     private TourService tourService;
     private UserService userService; // Declare UserService as a field
+
+
+    private final OrderService orderService; // Inject OrderService
+
+    @Autowired
+    public MainController(TourService tourService, UserService userService, OrderService orderService) {
+        this.tourService = tourService;
+        this.userService = userService;
+        this.orderService = orderService;
+    }
 
     @Autowired
     public void setTourService(TourService tourService, UserService userService) {
@@ -46,17 +56,19 @@ public class MainController {
         return "sucess";
     }
 
-    @GetMapping("/contact")
-    public String contact() {
-        return "contact";
-    }
+
+
 
     @GetMapping("/admin")
     public String admin(Model model) {
         List<Tours> allTours = tourService.getAllProducts();
         List<User> allUsers = userService.getAllUsers();
+        List<Order> allOrders = orderService.getAllOrders(); // Fetch all orders
+
         model.addAttribute("tour", allTours);
         model.addAttribute("users", allUsers);
+        model.addAttribute("orders", allOrders); // Add orders to the model
+
         return "admin";
     }
 
@@ -78,5 +90,22 @@ public class MainController {
     public String deleteProductById(@PathVariable("id") Long id) {
         tourService.deleteProductById(id);
         return "redirect:/tours";
+    }
+
+
+    @GetMapping("/errors/403")
+    public String accessDenied() {
+        return "errors/403";
+    }
+    @ExceptionHandler(Exception.class)
+    public String handleException(Exception e, Model model) {
+        model.addAttribute("error", e.getMessage());
+        return "errors/errors";
+    }
+
+    @ExceptionHandler(org.springframework.security.access.AccessDeniedException.class)
+    public String handleAccessDeniedException(org.springframework.security.access.AccessDeniedException e, Model model) {
+        model.addAttribute("error", "Access denied");
+        return "errors/errors";
     }
 }

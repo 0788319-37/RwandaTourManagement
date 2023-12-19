@@ -56,5 +56,8 @@ public class TourService {
             throw new RuntimeException("Tour not found");
         }
     }
+    public void deleteTourById(Long id) {
+        tourRepository.deleteById(id);
+    }
 
 }

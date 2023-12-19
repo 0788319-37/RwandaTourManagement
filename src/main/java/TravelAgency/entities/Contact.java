@@ -21,15 +21,15 @@ public class Contact {
 
     @NotBlank(message = "Email is required")
     @Email(message = "Invalid email address")
-    @Size(max = 100, message = "Email must be at most 100 characters")
+    @Size(max = 10, message = "Email must be at most 100 characters")
     private String email;
 
     @NotBlank(message = "Subject is required")
-    @Size(max = 200, message = "Subject must be at most 200 characters")
+    @Size(max = 10, message = "Subject must be at most 200 characters")
     private String subject;
 
     @NotBlank(message = "Message is required")
-    @Size(max = 1000, message = "Message must be at most 1000 characters")
+    @Size(max = 10, message = "Message must be at most 1000 characters")
     private String message;
 
     // Constructors, getters, and setters

@@ -19,7 +19,7 @@ public class OrderItem {
     @JoinColumn(name = "tour_id")
     private Tours tour;
 
-    // other fields and methods
+
 
     public Long getId() {
         return id;

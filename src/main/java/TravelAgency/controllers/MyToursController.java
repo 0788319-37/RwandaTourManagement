@@ -1,6 +1,8 @@
 package TravelAgency.controllers;
 
+import TravelAgency.entities.Order;
 import TravelAgency.entities.User;
+import TravelAgency.services.EmailService;
 import TravelAgency.services.UserService;
 import TravelAgency.services.OrderService;
 import TravelAgency.utils.MyTours;
@@ -20,6 +22,9 @@ public class MyToursController {
     private MyTours cart;
     private OrderService orderService;
     private UserService userService;
+
+    @Autowired
+    private EmailService emailService;
 
     @Autowired
     public void setCart(MyTours cart) {
@@ -58,10 +63,17 @@ public class MyToursController {
             User user = userService.findByUsername(principal.getName())
                     .orElseThrow(() -> new RuntimeException("User not found"));
 
-            orderService.createOrderFromItems(user, cart.getItems());
+            // Create the order
+            Order order = orderService.createOrderFromItems(user, cart.getItems());
             cart.getItems().clear();
 
-            return "redirect:/tours";
+            // Get the user's email
+            String userEmail = user.getEmail();
+
+            // Send order confirmation email
+            emailService.sendOrderConfirmationEmail(userEmail, order);
+
+            return "redirect:/orders/myOrders";
         } catch (Exception e) {
             // Log the exception or handle it appropriately
             redirectAttributes.addFlashAttribute("error", "An error occurred while processing your order.");
@@ -69,4 +81,3 @@ public class MyToursController {
         }
     }
 }
-

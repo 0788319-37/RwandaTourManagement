@@ -3,16 +3,17 @@ package TravelAgency.controllers;
 import TravelAgency.entities.Contact;
 import TravelAgency.services.ContactService;
 import TravelAgency.services.EmailService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/contact")
 public class ContactController {
+
+    private static final Logger logger = LoggerFactory.getLogger(ContactController.class);
 
     private final ContactService contactService;
     private final EmailService emailService;
@@ -23,19 +24,27 @@ public class ContactController {
         this.emailService = emailService;
     }
 
+    @GetMapping("/contact")
+    public String contact() {
+        return "contact";
+    }
+
     @PostMapping("/submitContactForm")
-    @ResponseBody
-    public String submitContactForm(@RequestBody Contact contact) {
-        // You can add validation logic here if needed
-        // Process the form data
-        contactService.processForm(contact);
+    public String submitContactForm(@ModelAttribute Contact contact, Model model) {
+        logger.info("Received contact form submission: {}", contact);
 
-        // Save to the database
-        contactService.saveContact(contact);
+        try {
+            contactService.processForm(contact);
+            contactService.saveContact(contact);
+            emailService.sendEmail(contact.getName(), contact.getEmail(), contact.getSubject(), contact.getMessage());
 
-        // Send email
-        emailService.sendEmail(contact.getName(), contact.getEmail(), contact.getSubject(), contact.getMessage());
+            model.addAttribute("successMessage", "Your message has been submitted successfully!");
+        } catch (Exception e) {
+            logger.error("Error processing contact form", e);
+            model.addAttribute("errorMessage", "There was an error submitting your message. Please try again.");
+        }
 
-        return "Form submitted successfully!";
+        // Return the same view
+        return "contact"; // Assuming your contact form view is named "contact.html"
     }
 }
