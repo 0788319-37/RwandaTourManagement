@@ -3,12 +3,10 @@ package TravelAgency.entities;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "order_items")
 public class OrderItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
 
     @ManyToOne

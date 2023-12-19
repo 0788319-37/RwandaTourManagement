@@ -4,20 +4,15 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "tours")
 public class Tours {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
 
-    @Column(name = "title")
     private String title;
 
-    @Column(name = "when_starts")
     private String when_starts;
 
-    @Column(name = "when_ending")
     private String when_ending;
 
     @Column(name = "destination")

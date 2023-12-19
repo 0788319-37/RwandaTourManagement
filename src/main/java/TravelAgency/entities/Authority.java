@@ -4,17 +4,15 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "authorities")
 @IdClass(AuthorityId.class)
 public class Authority implements Serializable {
 
     @Id
-    @Column(name = "authority")
+
     private String authority;
 
     @Id
     @ManyToOne
-    @JoinColumn(name = "username")
     private User user;
 
     // Constructors, getters, and setters

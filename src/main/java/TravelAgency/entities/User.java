@@ -8,14 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "users")
 public class User {
     @Id
-    @Column(name = "username", unique = true)
     @NotEmpty(message = "Username cannot be empty")
     private String username;
 
-    @Column(name = "password")
     @Size(min = 5, message = "Password must be at least 5 characters")
     @NotNull(message = "Password cannot be null")
     private String password;
@@ -27,28 +24,20 @@ public class User {
     @NotEmpty(message = "Email cannot be empty")
     private String email;
 
-    @Column(name = "phone_number")
     private String phoneNumber;
 
-    @Column(name = "country")
     private String country;
 
-    @Column(name = "security_question_1")
     private String securityQuestion1;
 
-    @Column(name = "security_answer_1")
     private String securityAnswer1;
 
-    @Column(name = "security_question_2")
     private String securityQuestion2;
 
-    @Column(name = "security_answer_2")
     private String securityAnswer2;
 
-    @Column(name = "security_question_3")
     private String securityQuestion3;
 
-    @Column(name = "security_answer_3")
     private String securityAnswer3;
 
 

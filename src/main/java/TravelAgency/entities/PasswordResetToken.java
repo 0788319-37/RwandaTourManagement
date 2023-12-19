@@ -7,7 +7,6 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "password_reset_tokens")
 public class PasswordResetToken {
 
     @Id
@@ -24,7 +23,6 @@ public class PasswordResetToken {
     @NotNull
     private LocalDateTime expiryDate;
 
-    @Column(nullable = false)
     private boolean used = false; // Default to false
 
     // Constructors, getters, and setters
