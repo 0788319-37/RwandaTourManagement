@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Table(name = "\"order\"") // Use double quotes to specify the table name
 public class Order {
 
     @Id

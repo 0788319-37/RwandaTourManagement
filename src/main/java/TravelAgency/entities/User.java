@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(name = "\"user\"") // Use double quotes to specify the table name
 public class User {
     @Id
     @NotEmpty(message = "Username cannot be empty")
