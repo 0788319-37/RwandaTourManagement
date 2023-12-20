@@ -95,7 +95,7 @@ public class PasswordResetTokenService {
         userRepository.save(user);
 
         // Send the reset link via email
-        String resetLink = "http://localhost:8081/app/reset-password?token=" + passwordResetToken.getToken();
+        String resetLink = "https://tour-w9il.onrender.com/app/reset-password?token=" + passwordResetToken.getToken();
         sendResetLinkByEmail(user.getEmail(), resetLink);
 
         log.info("Password reset initiated successfully. Reset link sent to email.");
